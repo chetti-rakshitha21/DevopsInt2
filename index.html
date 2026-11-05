@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create an Account</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #f3f5f9;
+      color: #202938;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      width: min(100%, 420px);
+      padding: 32px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 12px 35px rgba(25, 40, 65, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .intro {
+      margin: 0 0 24px;
+      color: #667085;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin: 16px 0 6px;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd2df;
+      border-radius: 7px;
+      font: inherit;
+    }
+
+    input:focus {
+      outline: 3px solid rgba(59, 110, 230, 0.18);
+      border-color: #3b6ee6;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 13px;
+      border: 0;
+      border-radius: 7px;
+      background: #315fe8;
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #244bc0;
+    }
+
+    #message {
+      min-height: 1.25em;
+      margin: 14px 0 0;
+      color: #18794e;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Create an Account</h1>
+    <p class="intro">Register to get started.</p>
+
+    <form id="registration-form">
+      <label for="name">Full name</label>
+      <input id="name" name="name" type="text" autocomplete="name" required>
+
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="email" autocomplete="email" required>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+
+      <label for="confirm-password">Confirm password</label>
+      <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+
+      <button type="submit">Register</button>
+      <p id="message" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('registration-form');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm-password');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      message.textContent = '';
+
+      if (password.value !== confirmPassword.value) {
+        confirmPassword.setCustomValidity('Passwords do not match.');
+        confirmPassword.reportValidity();
+        return;
+      }
+
+      confirmPassword.setCustomValidity('');
+      message.textContent = 'Registration form submitted successfully!';
+      form.reset();
+    });
+
+    confirmPassword.addEventListener('input', () => {
+      confirmPassword.setCustomValidity('');
+    });
+  </script>
+</body>
+</html>
